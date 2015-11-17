@@ -14,10 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         main-window.cpp \
-    options-window.cpp
+    options-form.cpp
 
 HEADERS  += main-window.h \
-    options-window.h
+    options-form.h
 
-FORMS    += mainwindow.ui \
-    options-window.ui
+FORMS    += \
+    main-window.ui \
+    options-form.ui
