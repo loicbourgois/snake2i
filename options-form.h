@@ -4,19 +4,19 @@
 #include <QWidget>
 
 namespace Ui {
-class optionsForm;
+class OptionsForm;
 }
 
-class optionsForm : public QWidget
+class OptionsForm : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit optionsForm(QWidget *parent = 0);
-    ~optionsForm();
+    explicit OptionsForm(QWidget *parent = 0);
+    ~OptionsForm();
 
 private:
-    Ui::optionsForm *ui;
+    Ui::OptionsForm *ui;
 };
 
 #endif // OPTIONSFORM_H

@@ -1,14 +1,14 @@
 #include "options-form.h"
 #include "ui_options-form.h"
 
-optionsForm::optionsForm(QWidget *parent) :
+OptionsForm::OptionsForm(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::optionsForm)
+    ui(new Ui::OptionsForm)
 {
     ui->setupUi(this);
 }
 
-optionsForm::~optionsForm()
+OptionsForm::~OptionsForm()
 {
     delete ui;
 }
