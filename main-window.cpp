@@ -1,14 +1,15 @@
 #include "main-window.h"
 #include "ui_mainwindow.h"
 
+#include "main-form.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    optionsForm = new OptionsForm();
     ui->setupUi(this);
-    QObject::connect(this->ui->pushButtonOptions, SIGNAL(clicked()),
-                         this, SLOT(goToOptions()));
+
+    this->setCentralWidget(new MainForm(this));
 }
 
 MainWindow::~MainWindow()
@@ -16,7 +17,4 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::goToOptions()
-{
-    this->setCentralWidget(optionsForm);
-}
+

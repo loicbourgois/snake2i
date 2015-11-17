@@ -15,13 +15,25 @@ TEMPLATE = app
 SOURCES += main.cpp\
         main-window.cpp \
     options-form.cpp \
-    instructions-form.cpp
+    instructions-form.cpp \
+    launch-game-form.cpp \
+    game-form.cpp \
+    main-form.cpp \
+    editor-form.cpp
 
 HEADERS  += main-window.h \
     options-form.h \
-    instructions-form.h
+    instructions-form.h \
+    launch-game-form.h \
+    game-form.h \
+    main-form.h \
+    editor-form.h
 
 FORMS    += \
     main-window.ui \
     options-form.ui \
-    instructions-form.ui
+    instructions-form.ui \
+    launch-game-form.ui \
+    game-form.ui \
+    main-form.ui \
+    editor-form.ui
