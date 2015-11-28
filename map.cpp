@@ -9,6 +9,7 @@ Map::Map(std::string filename) :
     height(0)
 {
     std::ifstream file(filename.c_str());
+    file >> direction;
     file >> width;
     file >> height;
     std::string line;
@@ -46,4 +47,9 @@ int Map::getWidth()
 int Map::getHeight()
 {
     return height;
+}
+
+char Map::getDirection()
+{
+    return direction;
 }

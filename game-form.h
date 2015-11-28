@@ -4,6 +4,7 @@
 #include "blank.h"
 #include "map.h"
 #include "scene.h"
+#include "snake.h"
 #include "view.h"
 #include "wall.h"
 #include <QWidget>
@@ -25,6 +26,7 @@ private:
     View * view;
     Scene * scene;
     Map * map;
+    Snake snake;
 };
 
 #endif // GAMEFORM_H

@@ -11,10 +11,12 @@ public:
     char getTile(int x, int y);
     int getWidth();
     int getHeight();
+    char getDirection();
 private:
     std::vector< std::vector<char> > map;
     int width;
     int height;
+    char direction;
 };
 
 #endif // MAP_H

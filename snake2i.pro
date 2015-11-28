@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     scene.cpp \
     wall.cpp \
     map.cpp \
-    blank.cpp
+    blank.cpp \
+    snake.cpp \
+    head.cpp
 
 HEADERS  += main-window.h \
     options-form.h \
@@ -37,7 +39,9 @@ HEADERS  += main-window.h \
     scene.h \
     wall.h \
     map.h \
-    blank.h
+    blank.h \
+    snake.h \
+    head.h
 
 FORMS    += \
     main-window.ui \
