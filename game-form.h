@@ -1,6 +1,11 @@
 #ifndef GAMEFORM_H
 #define GAMEFORM_H
 
+#include "blank.h"
+#include "map.h"
+#include "scene.h"
+#include "view.h"
+#include "wall.h"
 #include <QWidget>
 
 namespace Ui {
@@ -17,6 +22,9 @@ public:
 
 private:
     Ui::GameForm *ui;
+    View * view;
+    Scene * scene;
+    Map * map;
 };
 
 #endif // GAMEFORM_H

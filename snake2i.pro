@@ -19,7 +19,12 @@ SOURCES += main.cpp\
     launch-game-form.cpp \
     game-form.cpp \
     main-form.cpp \
-    editor-form.cpp
+    editor-form.cpp \
+    view.cpp \
+    scene.cpp \
+    wall.cpp \
+    map.cpp \
+    blank.cpp
 
 HEADERS  += main-window.h \
     options-form.h \
@@ -27,7 +32,12 @@ HEADERS  += main-window.h \
     launch-game-form.h \
     game-form.h \
     main-form.h \
-    editor-form.h
+    editor-form.h \
+    view.h \
+    scene.h \
+    wall.h \
+    map.h \
+    blank.h
 
 FORMS    += \
     main-window.ui \
@@ -37,3 +47,6 @@ FORMS    += \
     game-form.ui \
     main-form.ui \
     editor-form.ui
+
+DISTFILES += \
+    square.map
