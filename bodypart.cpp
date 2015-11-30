@@ -1,8 +1,10 @@
-#include "wall.h"
+#include "bodypart.h"
 #include <QPainter>
 #include <QColor>
 
-Wall::Wall(Scene *scene, int x, int y) : QGraphicsItem(),
+#include <QDebug>
+
+BodyPart::BodyPart(Scene * scene, int x, int y) : QGraphicsItem(),
     radius(10),
     polygon()
 {
@@ -13,21 +15,22 @@ Wall::Wall(Scene *scene, int x, int y) : QGraphicsItem(),
     polygon.append(QPoint(-radius, radius));
 }
 
-QRectF Wall::boundingRect() const
+QRectF BodyPart::boundingRect() const
 {
     return QRectF(-radius,-radius,radius*2,radius*2);
 }
 
-void Wall::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void BodyPart::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     (void)option;
     (void)widget;
     painter->setPen(Qt::NoPen);
-    painter->setBrush(QColor(64,64,64));
-    painter->drawPolygon(polygon);
+    painter->setBrush(QColor(0,192,0));
+    QRectF rect(-radius+1,-radius+1,radius*2-2,radius*2-2);
+    painter->drawRoundedRect( rect, 4, 4 );
 }
 
-void Wall::advance(int step)
+void BodyPart::advance(int step)
 {
     if (!step)
         return;

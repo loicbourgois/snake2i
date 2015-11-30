@@ -16,6 +16,7 @@ public:
     ~LaunchGameForm();
 public slots:
     void launchGame();
+    void precedent();
 
 private:
     Ui::LaunchGameForm *ui;

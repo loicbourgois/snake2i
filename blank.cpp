@@ -23,7 +23,7 @@ void Blank::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     (void)option;
     (void)widget;
     painter->setPen(Qt::NoPen);
-    painter->setBrush(QColor(200,200,200));
+    painter->setBrush(QColor(170,204,153));
     painter->drawPolygon(polygon);
 }
 

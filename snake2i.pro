@@ -26,7 +26,10 @@ SOURCES += main.cpp\
     map.cpp \
     blank.cpp \
     snake.cpp \
-    head.cpp
+    head.cpp \
+    bodypart.cpp \
+    food.cpp \
+    util.cpp
 
 HEADERS  += main-window.h \
     options-form.h \
@@ -41,7 +44,10 @@ HEADERS  += main-window.h \
     map.h \
     blank.h \
     snake.h \
-    head.h
+    head.h \
+    bodypart.h \
+    food.h \
+    util.h
 
 FORMS    += \
     main-window.ui \

@@ -3,6 +3,7 @@
 
 #include "main-window.h"
 #include "game-form.h"
+#include "main-form.h"
 
 LaunchGameForm::LaunchGameForm(QWidget *parent) :
     QWidget(parent),
@@ -11,6 +12,8 @@ LaunchGameForm::LaunchGameForm(QWidget *parent) :
     ui->setupUi(this);
     QObject::connect(this->ui->pushButtonPlay, SIGNAL(clicked()),
                          this, SLOT(launchGame()));
+    QObject::connect(this->ui->pushButtonPrecedent, SIGNAL(clicked()),
+                     this, SLOT(precedent()));
 }
 
 LaunchGameForm::~LaunchGameForm()
@@ -21,4 +24,9 @@ LaunchGameForm::~LaunchGameForm()
 void LaunchGameForm::launchGame()
 {
     ((MainWindow*)(this->parent()))->setCentralWidget(new GameForm((MainWindow*)(this->parent())));
+}
+
+void LaunchGameForm::precedent()
+{
+    ((MainWindow*)(this->parent()))->setCentralWidget(new MainForm((MainWindow*)(this->parent())));
 }
