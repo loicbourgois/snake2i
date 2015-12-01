@@ -14,11 +14,6 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QWidget" name="widgetView" native="true">
-     <layout class="QGridLayout" name="gridLayout_6"/>
-    </widget>
-   </item>
    <item row="2" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
@@ -52,6 +47,11 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="0" column="0">
+    <widget class="QWidget" name="widgetView" native="true">
+     <layout class="QGridLayout" name="gridLayout_6"/>
+    </widget>
    </item>
   </layout>
  </widget>

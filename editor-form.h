@@ -11,6 +11,7 @@
 #include "wall.h"
 #include "blank.h"
 #include "snake.h"
+#include "bodypart.h"
 
 namespace Ui {
 class EditorForm;
@@ -34,6 +35,8 @@ private:
     View * view;
     Scene * scene;
     Map * map;
+    Head * head;
+    BodyPart * body;
     void loadMap();
 };
 

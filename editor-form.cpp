@@ -35,7 +35,7 @@ void EditorForm::loadMap()
             {
                 scene->addItem(new Blank(scene, x, y));
             }
-            else if(map->getTile(x, y) == ' ')
+            else if(map->getTile(x, y) == '.')
             {
                 scene->addItem(new Blank(scene, x, y));
             }
@@ -47,11 +47,13 @@ void EditorForm::loadMap()
         {
             if(map->getTile(x, y) == 'h')
             {
-                //snake.addHead(x, y);
+                this->head = new Head(scene, x, y);
+                scene->addItem(head);
             }
             else if(map->getTile(x, y) == 'b')
             {
-                //snake.addBodyPart(x, y);
+                this->body = new BodyPart(scene, x, y);
+                scene->addItem(body);
             }
         }
     }
@@ -74,11 +76,14 @@ void EditorForm::on_buttonSaveMap_clicked()
     if(saveFile.open(QIODevice::WriteOnly))
     {
         QTextStream stream(&saveFile);
-        stream << "YOLO" << endl;
-        //Récuperer les éléments posé par l'utilisateur sur la carte :
-        //Rechercher dans le scene, en fonction de la couleur
-        //Récréer la carte dès qu'un element est posé ou alors lorsqu'on charge la map
-
+        for (int colonne = 0; colonne < map->getHeight() ; colonne++)
+        {
+            for(int ligne = 0; ligne < map->getWidth(); ligne++)
+            {
+                stream << map->getTile(ligne,colonne);
+            }
+            stream << "\n";
+        }
         saveFile.close();
     }
 
