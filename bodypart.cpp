@@ -25,7 +25,7 @@ void BodyPart::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     (void)option;
     (void)widget;
     painter->setPen(Qt::NoPen);
-    painter->setBrush(QColor(0,192,0));
+    painter->setBrush(QColor(0,128+32,0));
     QRectF rect(-radius+1,-radius+1,radius*2-2,radius*2-2);
     painter->drawRoundedRect( rect, 4, 4 );
 }

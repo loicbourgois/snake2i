@@ -17,6 +17,7 @@ public:
     void setDirection(char direction);
     void move(Map map);
     Head *getHead();
+    void remove();
 private:
     Head * head;
     std::vector<BodyPart*> body;

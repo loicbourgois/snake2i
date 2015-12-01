@@ -31,41 +31,33 @@
    </property>
    <item row="3" column="0" colspan="2">
     <widget class="QWidget" name="widget_3" native="true">
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="1">
-       <widget class="QPushButton" name="pushButtonPause">
-        <property name="text">
-         <string>Pause</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="pushButtonRestart">
-        <property name="text">
-         <string>Recommencer</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_4"/>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QWidget" name="widget_2" native="true">
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="6" column="0">
        <widget class="QPushButton" name="pushButtonGo">
         <property name="text">
          <string>Go !</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
+      <item row="4" column="0">
+       <widget class="QPushButton" name="pushButtonPause">
+        <property name="text">
+         <string>Pause</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
        <widget class="QPushButton" name="pushButtonReprendre">
         <property name="text">
          <string>Reprende</string>
         </property>
        </widget>
       </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QWidget" name="widget_2" native="true">
-     <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
@@ -93,12 +85,35 @@
         </property>
        </spacer>
       </item>
+      <item row="5" column="0">
+       <widget class="QPushButton" name="pushButtonRestart">
+        <property name="text">
+         <string>Recommencer</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
    <item row="2" column="0">
     <widget class="QWidget" name="widgetView" native="true">
-     <layout class="QGridLayout" name="gridLayout_3"/>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+     </layout>
     </widget>
    </item>
    <item row="1" column="0">

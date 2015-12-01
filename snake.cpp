@@ -99,3 +99,11 @@ Head * Snake::getHead()
 {
     return head;
 }
+
+void Snake::remove()
+{
+    //head->hide();
+    delete head;
+    for(int i = 0 ; i < body.size() ; i++)
+        delete body[i];
+}

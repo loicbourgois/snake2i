@@ -30,6 +30,7 @@ public slots:
     void go();
     void pause();
     void reprendre();
+    void restart();
 
 private:
     Ui::GameForm *ui;
@@ -40,6 +41,7 @@ private:
     Food * food;
     QTimer * timer;
     void popFood();
+    void initSnake();
 };
 
 #endif // GAMEFORM_H

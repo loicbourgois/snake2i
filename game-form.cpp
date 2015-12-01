@@ -25,16 +25,18 @@ GameForm::GameForm(QWidget *parent) :
                      this, SLOT(pause()));
     QObject::connect(this->ui->pushButtonReprendre, SIGNAL(clicked()),
                      this, SLOT(reprendre()));
+    QObject::connect(this->ui->pushButtonRestart, SIGNAL(clicked()),
+                     this, SLOT(restart()));
+
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
+    timer->setInterval(200);
 
     view = new View(this);
     ui->widgetView->layout()->addWidget(view);
     scene = new Scene(this);
     view->setScene(scene);
     map = new Map("./square.map");
-    snake =Snake(scene);
-    snake.setDirection(map->getDirection());
     for(int x = 0 ; x < map->getWidth() ; x++)
     {
         for(int y = 0 ; y < map->getHeight() ; y++)
@@ -57,20 +59,7 @@ GameForm::GameForm(QWidget *parent) :
             }
         }
     }
-    for(int x = 0 ; x < map->getWidth() ; x++)
-    {
-        for(int y = 0 ; y < map->getHeight() ; y++)
-        {
-            if(map->getTile(x, y) == 'h')
-            {
-                snake.addHead(x, y);
-            }
-            else if(map->getTile(x, y) == 'b')
-            {
-                snake.addBodyPart(x, y);
-            }
-        }
-    }
+    initSnake();
     food = new Food(scene, 0,0);
     scene->addItem(food);
     popFood();
@@ -101,7 +90,6 @@ void GameForm::advance()
 void GameForm::go()
 {
     setFocus();
-    timer->setInterval(200);
     timer->start();
     ui->pushButtonGo->hide();
     ui->pushButtonPause->show();
@@ -117,9 +105,20 @@ void GameForm::pause()
 
 void GameForm::reprendre()
 {
-    timer->start(/*timer->interval()*/);
+    timer->start();
     ui->pushButtonPause->show();
     ui->pushButtonReprendre->hide();
+}
+
+void GameForm::restart()
+{
+    timer->stop();
+    ui->pushButtonGo->show();
+    ui->pushButtonPause->hide();
+    ui->pushButtonReprendre->hide();
+    ui->pushButtonRestart->hide();
+    initSnake();
+    popFood();
 }
 
 void GameForm::popFood()
@@ -135,6 +134,27 @@ void GameForm::popFood()
     x *= step;
     y *= step;
     food->setPos(x, y);
+}
+
+void GameForm::initSnake()
+{
+    snake.remove();
+    snake = Snake(scene);
+    snake.setDirection(map->getDirection());
+    for(int x = 0 ; x < map->getWidth() ; x++)
+    {
+        for(int y = 0 ; y < map->getHeight() ; y++)
+        {
+            if(map->getTile(x, y) == 'h')
+            {
+                snake.addHead(x, y);
+            }
+            else if(map->getTile(x, y) == 'b')
+            {
+                snake.addBodyPart(x, y);
+            }
+        }
+    }
 }
 
 void GameForm::keyPressEvent(QKeyEvent * event){
