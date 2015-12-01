@@ -6,6 +6,7 @@
 #include "main-form.h"
 #include <QKeyEvent>
 #include <QTimer>
+#include <QFileDialog>
 
 #include <QDebug>
 
@@ -35,6 +36,8 @@ GameForm::GameForm(QWidget *parent) :
                      this, SLOT(zoomLess()));
     QObject::connect(this->ui->pushButtonPlus, SIGNAL(clicked()),
                      this, SLOT(zoomMore()));
+    QObject::connect(this->ui->pushButtonLoadLevel, SIGNAL(clicked()),
+                     this, SLOT(loadLevel()));
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
@@ -46,33 +49,10 @@ GameForm::GameForm(QWidget *parent) :
     ui->widgetView->layout()->addWidget(view);
     scene = new Scene(this);
     view->setScene(scene);
-    map = new Map("./square.map");
-    for(int x = 0 ; x < map->getWidth() ; x++)
-    {
-        for(int y = 0 ; y < map->getHeight() ; y++)
-        {
-            if(map->getTile(x, y) == 'w')
-            {
-                scene->addItem(new Wall(scene, x, y));
-            }
-            else if(map->getTile(x, y) == 'h')
-            {
-                scene->addItem(new Blank(scene, x, y));
-            }
-            else if(map->getTile(x, y) == 'b')
-            {
-                scene->addItem(new Blank(scene, x, y));
-            }
-            else if(map->getTile(x, y) == '.')
-            {
-                scene->addItem(new Blank(scene, x, y));
-            }
-        }
-    }
-    initSnake();
     food = new Food(scene, 0,0);
     scene->addItem(food);
-    popFood();
+    //
+    loadLevel("./default.map");
 }
 
 GameForm::~GameForm()
@@ -117,12 +97,15 @@ void GameForm::go()
 
 void GameForm::pause()
 {
-    timer->stop();
-    ui->pushButtonGo->hide();
-    ui->pushButtonPause->hide();
-    ui->pushButtonReprendre->show();
-    ui->pushButtonRestart->show();
-    ui->labelDead->hide();
+    if(timer->isActive())
+    {
+        timer->stop();
+        ui->pushButtonGo->hide();
+        ui->pushButtonPause->hide();
+        ui->pushButtonReprendre->show();
+        ui->pushButtonRestart->show();
+        ui->labelDead->hide();
+    }
 }
 
 void GameForm::reprendre()
@@ -161,7 +144,44 @@ void GameForm::zoomMore()
 
 void GameForm::zoomLess()
 {
-     this->view->scale(0.8, 0.8);
+    this->view->scale(0.8, 0.8);
+}
+
+void GameForm::loadLevel(QString level)
+{
+    pause();
+    if(level == "")
+    {
+        level = QFileDialog::getOpenFileName(this,
+                                             "Choisir une carte", "","Map Files (*.map)");
+    }
+    if(level != "")
+    {
+        map = new Map(level.toStdString());
+        for(int x = 0 ; x < map->getWidth() ; x++)
+        {
+            for(int y = 0 ; y < map->getHeight() ; y++)
+            {
+                if(map->getTile(x, y) == 'w')
+                {
+                    scene->addItem(new Wall(scene, x, y));
+                }
+                else if(map->getTile(x, y) == 'h')
+                {
+                    scene->addItem(new Blank(scene, x, y));
+                }
+                else if(map->getTile(x, y) == 'b')
+                {
+                    scene->addItem(new Blank(scene, x, y));
+                }
+                else if(map->getTile(x, y) == '.')
+                {
+                    scene->addItem(new Blank(scene, x, y));
+                }
+            }
+        }
+        restart();
+    }
 }
 
 void GameForm::popFood()

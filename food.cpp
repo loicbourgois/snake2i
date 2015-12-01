@@ -11,6 +11,7 @@ Food::Food(Scene *scene, int x, int y) : QGraphicsItem(),
     polygon.append(QPoint(radius, -radius));
     polygon.append(QPoint(-radius, -radius));
     polygon.append(QPoint(-radius, radius));
+    setZValue(9999);
 }
 
 QRectF Food::boundingRect() const

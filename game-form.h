@@ -34,6 +34,7 @@ public slots:
     void updateDifficulty(int diff);
     void zoomMore();
     void zoomLess();
+    void loadLevel(QString level = "");
 
 private:
     Ui::GameForm *ui;

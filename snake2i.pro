@@ -59,4 +59,5 @@ FORMS    += \
     editor-form.ui
 
 DISTFILES += \
-    square.map
+    default.map \
+    labyrinthe.map

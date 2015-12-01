@@ -2,6 +2,9 @@
 
 View::View(QWidget * parent) : QGraphicsView(parent)
 {
-    setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
-    this->scale(2,2);
+    setBackgroundBrush(QBrush(QColor(0,0,0), Qt::SolidPattern));
+    scale(2,2);
+    setRenderHints(QPainter::Antialiasing
+                   | QPainter::SmoothPixmapTransform
+                   | QPainter::HighQualityAntialiasing);
 }
