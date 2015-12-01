@@ -16,6 +16,8 @@ MainForm::MainForm(QWidget *parent) :
                          this, SLOT(goToOptions()));
     QObject::connect(this->ui->pushButtonPlay, SIGNAL(clicked()),
                          this, SLOT(play()));
+    QObject::connect(this->ui->pushButtonEdit, SIGNAL(clicked()),
+                         this, SLOT(edit()));
 }
 
 MainForm::~MainForm()
