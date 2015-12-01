@@ -19,6 +19,7 @@ public slots:
     void play();
     void instructions();
     void edit();
+    void about();
 
 private:
     Ui::MainForm *ui;

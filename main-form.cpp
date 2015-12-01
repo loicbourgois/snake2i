@@ -6,6 +6,8 @@
 #include "options-form.h"
 #include "instructions-form.h"
 #include "editor-form.h"
+#include <QMessageBox>
+#include <QIcon>
 
 MainForm::MainForm(QWidget *parent) :
     QWidget(parent),
@@ -18,6 +20,8 @@ MainForm::MainForm(QWidget *parent) :
                          this, SLOT(play()));
     QObject::connect(this->ui->pushButtonEdit, SIGNAL(clicked()),
                          this, SLOT(edit()));
+    QObject::connect(this->ui->pushButtonAbout, SIGNAL(clicked()),
+                         this, SLOT(about()));
 }
 
 MainForm::~MainForm()
@@ -43,4 +47,9 @@ void MainForm::instructions()
 void MainForm::edit()
 {
     ((MainWindow*)this->parent())->setCentralWidget(new EditorForm((MainWindow*)this->parent()));
+}
+
+void MainForm::about()
+{
+    QMessageBox::about(this, "À propos", "Jeux de snake réalisé par Loïc Bourgois et Maxime Desmarchelier pour le cours d'Interface Homme Machine en seconde année à l'IG2I.");
 }
