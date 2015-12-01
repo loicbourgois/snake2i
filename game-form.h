@@ -19,7 +19,7 @@ class GameForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit GameForm(QWidget *parent, int difficulty);
+    explicit GameForm(QWidget *parent);
     ~GameForm();
     void keyPressEvent(QKeyEvent *event);
     void mousePressEvent(QMouseEvent *event);
@@ -31,6 +31,7 @@ public slots:
     void pause();
     void reprendre();
     void restart();
+    void updateDifficulty(int diff);
 
 private:
     Ui::GameForm *ui;

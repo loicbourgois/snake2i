@@ -2,7 +2,7 @@
 #include "ui_main-form.h"
 
 #include "main-window.h"
-#include "launch-game-form.h"
+#include "game-form.h"
 #include "options-form.h"
 #include "instructions-form.h"
 #include "editor-form.h"
@@ -36,7 +36,7 @@ void MainForm::goToOptions()
 
 void MainForm::play()
 {
-    ((MainWindow*)this->parent())->setCentralWidget(new LaunchGameForm((MainWindow*)this->parent()));
+    ((MainWindow*)this->parent())->setCentralWidget(new GameForm((MainWindow*)this->parent()));
 }
 
 void MainForm::instructions()

@@ -3,12 +3,13 @@
 #include "launch-game-form.h"
 #include "main-window.h"
 #include "util.h"
+#include "main-form.h"
 #include <QKeyEvent>
 #include <QTimer>
 
 #include <QDebug>
 
-GameForm::GameForm(QWidget *parent, int difficulty) :
+GameForm::GameForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GameForm),
     score(0)
@@ -33,7 +34,9 @@ GameForm::GameForm(QWidget *parent, int difficulty) :
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
-    timer->setInterval(1000 / difficulty);
+    timer->setInterval(1000 / ui->horizontalSliderDifficulty->value());
+    QObject::connect(this->ui->horizontalSliderDifficulty, SIGNAL(valueChanged(int)),
+                     this, SLOT(updateDifficulty(int)));
 
     view = new View(this);
     ui->widgetView->layout()->addWidget(view);
@@ -75,7 +78,7 @@ GameForm::~GameForm()
 
 void GameForm::precedent()
 {
-    ((MainWindow*)(this->parent()))->setCentralWidget(new LaunchGameForm((MainWindow*)(this->parent())));
+    ((MainWindow*)(this->parent()))->setCentralWidget(new MainForm((MainWindow*)(this->parent())));
 }
 
 void GameForm::advance()
@@ -140,6 +143,11 @@ void GameForm::restart()
     popFood();
     score = 0;
     this->ui->labelScore->setText(QString::number(score));
+}
+
+void GameForm::updateDifficulty(int diff)
+{
+    this->timer->setInterval(1000 / diff);
 }
 
 void GameForm::popFood()

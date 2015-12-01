@@ -23,8 +23,8 @@ LaunchGameForm::~LaunchGameForm()
 
 void LaunchGameForm::launchGame()
 {
-    ((MainWindow*)(this->parent()))->setCentralWidget(
-                new GameForm((MainWindow*)(this->parent()), ui->horizontalSliderDificulty->value()));
+    /*((MainWindow*)(this->parent()))->setCentralWidget(
+                new GameForm((MainWindow*)(this->parent()), ui->horizontalSliderDificulty->value()));*/
 }
 
 void LaunchGameForm::precedent()
