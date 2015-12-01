@@ -22,6 +22,8 @@ MainForm::MainForm(QWidget *parent) :
                          this, SLOT(edit()));
     QObject::connect(this->ui->pushButtonAbout, SIGNAL(clicked()),
                          this, SLOT(about()));
+    QObject::connect(this->ui->pushButtonInstructions, SIGNAL(clicked()),
+                         this, SLOT(instructions()));
 }
 
 MainForm::~MainForm()
