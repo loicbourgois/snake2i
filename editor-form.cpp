@@ -1,10 +1,12 @@
 #include "editor-form.h"
 #include "ui_editor-form.h"
 #include <QDebug>
+#include "bodypart.h"
 EditorForm::EditorForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditorForm)
 {
+    choice = 0;
     ui->setupUi(this);
     view = new View(this);
     ui->widgetView->layout()->addWidget(view);
@@ -13,6 +15,8 @@ EditorForm::EditorForm(QWidget *parent) :
     map = new Map();
     loadMap();
     connect(scene,SIGNAL(deleted(double,double)),this,SLOT(onDeleted(double,double)));
+    bodyPlaced = false;
+    headPlaced = false;
 }
 
 EditorForm::~EditorForm()
@@ -52,11 +56,13 @@ void EditorForm::loadMap()
             {
                 this->head = new Head(NULL, x, y);
                 scene->addItem(head);
+                headPlaced = true;
             }
             else if(map->getTile(x, y) == 'b')
             {
                 this->body = new BodyPart(NULL, x, y);
                 scene->addItem(body);
+                bodyPlaced = true;
             }
         }
     }
@@ -66,7 +72,7 @@ void EditorForm::on_buttonLoadMap_clicked()
 {
     //map = new Map("./square.map");
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Choisir une carte"), "",tr("Map Files (*.map)"));
+                                                    tr("Choisir une carte"), "",tr("Map Files (*.map)"));
     map = new Map(fileName.toStdString());
     loadMap();
 }
@@ -74,7 +80,7 @@ void EditorForm::on_buttonLoadMap_clicked()
 void EditorForm::on_buttonSaveMap_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),"",
-                               tr(".map"));
+                                                    tr(".map"));
     QFile saveFile(fileName);
     if(saveFile.open(QIODevice::WriteOnly))
     {
@@ -94,14 +100,124 @@ void EditorForm::on_buttonSaveMap_clicked()
     }
 }
 
-void EditorForm::on_testButton_clicked()
-{
-    map->setTile('w',5,5);
-    scene->addItem(new Wall(NULL,5,5));
-}
+
 
 void EditorForm::onDeleted(double x, double y)
 {
-    map->setTile('w',x/20,y/20);
-    scene->addItem(new Wall(NULL,x/20,y/20));
+    //BLANK 0
+    //WALL 1
+    //HEAD 2
+    //BODY 3
+    QTransform useless;
+    switch(choice)
+    {
+    case 0 :
+        if(map->getTile(x/20,y/20) == 'h')
+        {
+            headPlaced = false;
+            bodyPlaced = false;
+            if(map->getTile(x/20,(y/20)-1) == 'b')
+                scene->removeItem(scene->itemAt(x,y-20,useless));
+            if( map->getTile(x/20,(y/20)+1) == 'b')
+                scene->removeItem(scene->itemAt(x,y+20,useless));
+            if(map->getTile((x/20)-1,(y/20)) == 'b')
+                scene->removeItem(scene->itemAt(x-20,y,useless));
+            if(map->getTile((x/20)+1,(y/20)) == 'b')
+                scene->removeItem(scene->itemAt(x+20,y,useless));
+        }
+        if(map->getTile(x/20,y/20) == 'b')
+        {
+            headPlaced = false;
+            bodyPlaced = false;
+            if(map->getTile(x/20,(y/20)-1) == 'h')
+                scene->removeItem(scene->itemAt(x,y-20,useless));
+            if( map->getTile(x/20,(y/20)+1) == 'h')
+                scene->removeItem(scene->itemAt(x,y+20,useless));
+            if(map->getTile((x/20)-1,(y/20)) == 'h')
+                scene->removeItem(scene->itemAt(x-20,y,useless));
+            if(map->getTile((x/20)+1,(y/20)) == 'h')
+                scene->removeItem(scene->itemAt(x+20,y,useless));
+        }
+        map->setTile('.',x/20,y/20);
+        scene->removeItem(scene->itemAt(x,y,useless));
+        scene->addItem(new Blank(NULL,x/20,y/20));
+        break;
+    case 1 :
+        if(map->getTile(x/20,y/20) == 'h')
+        {
+            headPlaced = false;
+            bodyPlaced = false;
+            if(map->getTile(x/20,(y/20)-1) == 'b')
+                scene->removeItem(scene->itemAt(x,y-20,useless));
+            if( map->getTile(x/20,(y/20)+1) == 'b')
+                scene->removeItem(scene->itemAt(x,y+20,useless));
+            if(map->getTile((x/20)-1,(y/20)) == 'b')
+                scene->removeItem(scene->itemAt(x-20,y,useless));
+            if(map->getTile((x/20)+1,(y/20)) == 'b')
+                scene->removeItem(scene->itemAt(x+20,y,useless));
+        }
+        if(map->getTile(x/20,y/20) == 'b')
+        {
+            headPlaced = false;
+            bodyPlaced = false;
+            if(map->getTile(x/20,(y/20)-1) == 'h')
+                scene->removeItem(scene->itemAt(x,y-20,useless));
+            if( map->getTile(x/20,(y/20)+1) == 'h')
+                scene->removeItem(scene->itemAt(x,y+20,useless));
+            if(map->getTile((x/20)-1,(y/20)) == 'h')
+                scene->removeItem(scene->itemAt(x-20,y,useless));
+            if(map->getTile((x/20)+1,(y/20)) == 'h')
+                scene->removeItem(scene->itemAt(x+20,y,useless));
+        }
+        map->setTile('w',x/20,y/20);
+        scene->removeItem(scene->itemAt(x,y,useless));
+        scene->addItem(new Wall(NULL,x/20,y/20));
+        break;
+    case 2 :
+        if(headPlaced == false && bodyPlaced == false)
+        {
+            map->setTile('h',x/20,y/20);
+            scene->removeItem(scene->itemAt(x,y,useless));
+            scene->addItem(new Head(NULL,x/20,y/20));
+            choice = 3;
+            headPlaced = true;
+        }
+        break;
+    case 3 :
+        if(bodyPlaced == false && headPlaced == true)
+        {
+            if((map->getTile(x/20,(y/20)-1) == 'h'
+                || map->getTile(x/20,(y/20)+1) == 'h'
+                || map->getTile((x/20)-1,(y/20)) == 'h'
+                || map->getTile((x/20)+1,(y/20)) == 'h') && map->getTile(x/20,y/20) != 'h')
+            {
+                map->setTile('b',x/20,y/20);
+                scene->removeItem(scene->itemAt(x,y,useless));
+                scene->addItem(new BodyPart(NULL,x/20,y/20));
+                bodyPlaced = true;
+                choice = 0;
+            }
+        }
+        break;
+    default:
+        break;
+    }
+}
+
+void EditorForm::on_headButton_clicked()
+{
+    if(choice != 3)
+        choice = 2;
+}
+
+void EditorForm::on_blankButton_clicked()
+{
+    if(choice != 3)
+        choice = 0;
+}
+
+void EditorForm::on_wallButton_clicked()
+{
+    if(choice != 3)
+        choice = 1;
 }

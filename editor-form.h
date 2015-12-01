@@ -31,9 +31,13 @@ private slots:
 
     void on_buttonSaveMap_clicked();
 
-    void on_testButton_clicked();
-
     void onDeleted(double x,double y);
+
+    void on_headButton_clicked();
+
+    void on_blankButton_clicked();
+
+    void on_wallButton_clicked();
 
 private:
     Ui::EditorForm *ui;
@@ -42,6 +46,9 @@ private:
     Map * map;
     Head * head;
     BodyPart * body;
+    int choice;
+    bool headPlaced;
+    bool bodyPlaced;
     void loadMap();
 };
 

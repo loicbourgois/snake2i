@@ -17,7 +17,7 @@ void SceneEditor::mouseReleaseEvent( QGraphicsSceneMouseEvent * event )
      if (item) //If there is an item at that position
      {
          emit deleted(item->x(),item->y());
-         removeItem(item);
+         //removeItem(item);
      }
 }
 
