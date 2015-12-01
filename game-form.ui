@@ -34,6 +34,11 @@
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="4" column="0">
        <widget class="QPushButton" name="pushButtonReprendre">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Reprende</string>
         </property>
@@ -41,6 +46,11 @@
       </item>
       <item row="7" column="0">
        <widget class="QPushButton" name="pushButtonGo">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Go !</string>
         </property>
@@ -48,6 +58,11 @@
       </item>
       <item row="5" column="0">
        <widget class="QPushButton" name="pushButtonPause">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Pause</string>
         </property>
@@ -55,6 +70,11 @@
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Temps</string>
         </property>
@@ -62,6 +82,11 @@
       </item>
       <item row="6" column="0">
        <widget class="QPushButton" name="pushButtonRestart">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Recommencer</string>
         </property>
@@ -69,6 +94,11 @@
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Score</string>
         </property>
@@ -81,7 +111,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
+          <width>150</width>
           <height>40</height>
          </size>
         </property>
@@ -89,6 +119,11 @@
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="labelDead">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Vous avez perdu :(</string>
         </property>
@@ -164,6 +199,11 @@
       </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="pushButtonPrecedent">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Précédent</string>
         </property>

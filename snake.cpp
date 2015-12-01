@@ -5,7 +5,8 @@
 Snake::Snake() :
     xSpeed(0),
     ySpeed(0),
-    alive(true)
+    alive(true),
+    head(new Head(scene, 0, 0))
 {
 
 }
@@ -14,7 +15,8 @@ Snake::Snake(Scene *scene) :
     scene(scene),
     xSpeed(0),
     ySpeed(0),
-    alive(true)
+    alive(true),
+    head(new Head(scene, 0, 0))
 {
 
 }
@@ -43,6 +45,7 @@ void Snake::addBodyPart(int x, int y)
 void Snake::setDirection(char direction)
 {
     this->direction = direction;
+    this->head->setDirection(direction);
     if(direction == 'u')
     {
         xSpeed = 0;
@@ -111,4 +114,9 @@ void Snake::remove()
 bool Snake::isAlive()
 {
     return alive;
+}
+
+char Snake::getDirection()
+{
+    return direction;
 }

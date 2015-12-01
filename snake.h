@@ -19,6 +19,7 @@ public:
     Head *getHead();
     void remove();
     bool isAlive();
+    char getDirection();
 private:
     Head * head;
     std::vector<BodyPart*> body;

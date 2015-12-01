@@ -14,6 +14,8 @@ class OptionsForm : public QWidget
 public:
     explicit OptionsForm(QWidget *parent = 0);
     ~OptionsForm();
+public slots:
+    void precedent();
 
 private:
     Ui::OptionsForm *ui;

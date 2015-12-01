@@ -17,6 +17,7 @@ GameForm::GameForm(QWidget *parent, int difficulty) :
     ui->pushButtonReprendre->hide();
     ui->pushButtonRestart->hide();
     ui->labelDead->hide();
+    ((MainWindow*)this->parent())->showMaximized();
 
     QObject::connect(this->ui->pushButtonPrecedent, SIGNAL(clicked()),
                      this, SLOT(precedent()));
