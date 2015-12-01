@@ -27,6 +27,7 @@ void Head::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->setPen(Qt::NoPen);
     painter->setBrush(QColor(0,128,0));
     QRectF rect(-radius+1,-radius+1,radius*2-2,radius*2-2);
+    //QRectF rect(-radius,-radius,radius*2,radius*2);
     painter->drawRoundedRect( rect, 4, 4 );
 }
 

@@ -19,7 +19,7 @@ class GameForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit GameForm(QWidget *parent = 0);
+    explicit GameForm(QWidget *parent, int difficulty);
     ~GameForm();
     void keyPressEvent(QKeyEvent *event);
     void mousePressEvent(QMouseEvent *event);

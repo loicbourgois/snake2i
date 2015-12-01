@@ -8,7 +8,7 @@
 
 #include <QDebug>
 
-GameForm::GameForm(QWidget *parent) :
+GameForm::GameForm(QWidget *parent, int difficulty) :
     QWidget(parent),
     ui(new Ui::GameForm)
 {
@@ -31,7 +31,7 @@ GameForm::GameForm(QWidget *parent) :
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
-    timer->setInterval(200);
+    timer->setInterval(1000 / difficulty);
 
     view = new View(this);
     ui->widgetView->layout()->addWidget(view);
@@ -110,6 +110,7 @@ void GameForm::pause()
     ui->pushButtonGo->hide();
     ui->pushButtonPause->hide();
     ui->pushButtonReprendre->show();
+    ui->pushButtonRestart->show();
     ui->labelDead->hide();
 }
 
@@ -119,6 +120,7 @@ void GameForm::reprendre()
     ui->pushButtonGo->hide();
     ui->pushButtonPause->show();
     ui->pushButtonReprendre->hide();
+    ui->pushButtonRestart->show();
     ui->labelDead->hide();
 }
 
@@ -197,7 +199,7 @@ void GameForm::keyPressEvent(QKeyEvent * event){
         {
             pause();
         }
-        else
+        else if(snake.isAlive())
         {
             reprendre();
         }
