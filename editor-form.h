@@ -33,6 +33,8 @@ private slots:
 
     void on_testButton_clicked();
 
+    void onDeleted(double x,double y);
+
 private:
     Ui::EditorForm *ui;
     View * view;

@@ -1,6 +1,6 @@
 #include "editor-form.h"
 #include "ui_editor-form.h"
-
+#include <QDebug>
 EditorForm::EditorForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditorForm)
@@ -12,6 +12,7 @@ EditorForm::EditorForm(QWidget *parent) :
     view->setScene(scene);
     map = new Map();
     loadMap();
+    connect(scene,SIGNAL(deleted(double,double)),this,SLOT(onDeleted(double,double)));
 }
 
 EditorForm::~EditorForm()
@@ -69,7 +70,7 @@ void EditorForm::on_buttonLoadMap_clicked()
     map = new Map(fileName.toStdString());
     loadMap();
 }
-
+//TODO recuperer la tête et trouver son corps pour en déduire la direction
 void EditorForm::on_buttonSaveMap_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
@@ -78,6 +79,9 @@ void EditorForm::on_buttonSaveMap_clicked()
     if(saveFile.open(QIODevice::WriteOnly))
     {
         QTextStream stream(&saveFile);
+        stream << "u\n"; //Direction au hasard pour l'instant
+        stream << map->getWidth();
+        stream << map->getHeight();
         for (int colonne = 0; colonne < map->getHeight() ; colonne++)
         {
             for(int ligne = 0; ligne < map->getWidth(); ligne++)
@@ -94,4 +98,10 @@ void EditorForm::on_testButton_clicked()
 {
     map->setTile('w',5,5);
     scene->addItem(new Wall(NULL,5,5));
+}
+
+void EditorForm::onDeleted(double x, double y)
+{
+    map->setTile('w',x/20,y/20);
+    scene->addItem(new Wall(NULL,x/20,y/20));
 }
