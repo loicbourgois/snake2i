@@ -31,6 +31,10 @@ GameForm::GameForm(QWidget *parent) :
                      this, SLOT(reprendre()));
     QObject::connect(this->ui->pushButtonRestart, SIGNAL(clicked()),
                      this, SLOT(restart()));
+    QObject::connect(this->ui->pushButtonMinus, SIGNAL(clicked()),
+                     this, SLOT(zoomLess()));
+    QObject::connect(this->ui->pushButtonPlus, SIGNAL(clicked()),
+                     this, SLOT(zoomMore()));
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
@@ -150,6 +154,16 @@ void GameForm::updateDifficulty(int diff)
     this->timer->setInterval(1000 / diff);
 }
 
+void GameForm::zoomMore()
+{
+    this->view->scale(1.25, 1.25);
+}
+
+void GameForm::zoomLess()
+{
+     this->view->scale(0.8, 0.8);
+}
+
 void GameForm::popFood()
 {
     int step = 20;
@@ -187,23 +201,30 @@ void GameForm::initSnake()
 }
 
 void GameForm::keyPressEvent(QKeyEvent * event){
-    if (event->key()==Qt::Key_Z)
+    if(snake.isAlive())
     {
-        snake.setDirection('u');
+        if (event->key()==Qt::Key_Z)
+        {
+            if(snake.getDirection() != 'd')
+                snake.setDirection('u');
+        }
+        else if (event->key()==Qt::Key_S)
+        {
+            if(snake.getDirection() != 'u')
+                snake.setDirection('d');
+        }
+        else if (event->key()==Qt::Key_Q)
+        {
+            if(snake.getDirection() != 'r')
+                snake.setDirection('l');
+        }
+        else if (event->key()==Qt::Key_D)
+        {
+            if(snake.getDirection() != 'l')
+                snake.setDirection('r');
+        }
     }
-    else if (event->key()==Qt::Key_S)
-    {
-        snake.setDirection('d');
-    }
-    else if (event->key()==Qt::Key_Q)
-    {
-        snake.setDirection('l');
-    }
-    else if (event->key()==Qt::Key_D)
-    {
-        snake.setDirection('r');
-    }
-    else if (event->key()==Qt::Key_R)
+    if (event->key()==Qt::Key_R)
     {
         restart();
     }

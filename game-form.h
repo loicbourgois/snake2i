@@ -32,6 +32,8 @@ public slots:
     void reprendre();
     void restart();
     void updateDifficulty(int diff);
+    void zoomMore();
+    void zoomLess();
 
 private:
     Ui::GameForm *ui;
