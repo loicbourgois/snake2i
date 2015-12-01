@@ -16,6 +16,7 @@ GameForm::GameForm(QWidget *parent) :
     ui->pushButtonPause->hide();
     ui->pushButtonReprendre->hide();
     ui->pushButtonRestart->hide();
+    ui->labelDead->hide();
 
     QObject::connect(this->ui->pushButtonPrecedent, SIGNAL(clicked()),
                      this, SLOT(precedent()));
@@ -85,6 +86,12 @@ void GameForm::advance()
         snake.addBodyPart(10,10);
     }
     scene->advance();
+    if(!snake.isAlive())
+    {
+        this->pause();
+        ui->pushButtonReprendre->hide();
+        ui->labelDead->show();
+    }
 }
 
 void GameForm::go()
@@ -94,20 +101,25 @@ void GameForm::go()
     ui->pushButtonGo->hide();
     ui->pushButtonPause->show();
     ui->pushButtonRestart->show();
+    ui->labelDead->hide();
 }
 
 void GameForm::pause()
 {
     timer->stop();
+    ui->pushButtonGo->hide();
     ui->pushButtonPause->hide();
     ui->pushButtonReprendre->show();
+    ui->labelDead->hide();
 }
 
 void GameForm::reprendre()
 {
     timer->start();
+    ui->pushButtonGo->hide();
     ui->pushButtonPause->show();
     ui->pushButtonReprendre->hide();
+    ui->labelDead->hide();
 }
 
 void GameForm::restart()
@@ -117,6 +129,7 @@ void GameForm::restart()
     ui->pushButtonPause->hide();
     ui->pushButtonReprendre->hide();
     ui->pushButtonRestart->hide();
+    ui->labelDead->hide();
     initSnake();
     popFood();
 }
@@ -173,6 +186,21 @@ void GameForm::keyPressEvent(QKeyEvent * event){
     else if (event->key()==Qt::Key_D)
     {
         snake.setDirection('r');
+    }
+    else if (event->key()==Qt::Key_R)
+    {
+        restart();
+    }
+    else if (event->key()==Qt::Key_P)
+    {
+        if(timer->isActive())
+        {
+            pause();
+        }
+        else
+        {
+            reprendre();
+        }
     }
 }
 

@@ -18,6 +18,7 @@ public:
     void move(Map map);
     Head *getHead();
     void remove();
+    bool isAlive();
 private:
     Head * head;
     std::vector<BodyPart*> body;

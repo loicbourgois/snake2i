@@ -107,3 +107,8 @@ void Snake::remove()
     for(int i = 0 ; i < body.size() ; i++)
         delete body[i];
 }
+
+bool Snake::isAlive()
+{
+    return alive;
+}
