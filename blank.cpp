@@ -32,4 +32,3 @@ void Blank::advance(int step)
     if (!step)
         return;
 }
-

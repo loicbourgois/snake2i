@@ -32,6 +32,20 @@
    <item row="3" column="0" colspan="2">
     <widget class="QWidget" name="widget_3" native="true">
      <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pushButtonPause">
+        <property name="text">
+         <string>Pause</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="pushButtonRestart">
+        <property name="text">
+         <string>Recommencer</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="pushButtonGo">
         <property name="text">
@@ -39,10 +53,10 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="pushButton">
+      <item row="0" column="2">
+       <widget class="QPushButton" name="pushButtonReprendre">
         <property name="text">
-         <string>PushButton</string>
+         <string>Reprende</string>
         </property>
        </widget>
       </item>

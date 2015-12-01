@@ -13,12 +13,20 @@ GameForm::GameForm(QWidget *parent) :
     ui(new Ui::GameForm)
 {
     ui->setupUi(this);
+    ui->pushButtonPause->hide();
+    ui->pushButtonReprendre->hide();
+    ui->pushButtonRestart->hide();
 
     QObject::connect(this->ui->pushButtonPrecedent, SIGNAL(clicked()),
                      this, SLOT(precedent()));
-
     QObject::connect(this->ui->pushButtonGo, SIGNAL(clicked()),
                      this, SLOT(go()));
+    QObject::connect(this->ui->pushButtonPause, SIGNAL(clicked()),
+                     this, SLOT(pause()));
+    QObject::connect(this->ui->pushButtonReprendre, SIGNAL(clicked()),
+                     this, SLOT(reprendre()));
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
 
     view = new View(this);
     ui->widgetView->layout()->addWidget(view);
@@ -43,7 +51,7 @@ GameForm::GameForm(QWidget *parent) :
             {
                 scene->addItem(new Blank(scene, x, y));
             }
-            else if(map->getTile(x, y) == ' ')
+            else if(map->getTile(x, y) == '.')
             {
                 scene->addItem(new Blank(scene, x, y));
             }
@@ -93,9 +101,25 @@ void GameForm::advance()
 void GameForm::go()
 {
     setFocus();
-    QTimer * timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
-    timer->start(200);
+    timer->setInterval(200);
+    timer->start();
+    ui->pushButtonGo->hide();
+    ui->pushButtonPause->show();
+    ui->pushButtonRestart->show();
+}
+
+void GameForm::pause()
+{
+    timer->stop();
+    ui->pushButtonPause->hide();
+    ui->pushButtonReprendre->show();
+}
+
+void GameForm::reprendre()
+{
+    timer->start(/*timer->interval()*/);
+    ui->pushButtonPause->show();
+    ui->pushButtonReprendre->hide();
 }
 
 void GameForm::popFood()

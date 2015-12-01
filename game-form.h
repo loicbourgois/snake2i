@@ -28,6 +28,8 @@ public slots:
     void precedent();
     void advance();
     void go();
+    void pause();
+    void reprendre();
 
 private:
     Ui::GameForm *ui;
@@ -36,6 +38,7 @@ private:
     Map * map;
     Snake snake;
     Food * food;
+    QTimer * timer;
     void popFood();
 };
 
