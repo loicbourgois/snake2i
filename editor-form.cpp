@@ -66,14 +66,14 @@ void EditorForm::on_buttonLoadMap_clicked()
 {
     //map = new Map("./square.map");
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Choisir une carte"), tr("Map Files (*.map)"));
+        tr("Choisir une carte"), "",tr("Map Files (*.map)"));
     map = new Map(fileName.toStdString());
     loadMap();
 }
 //TODO recuperer la tête et trouver son corps pour en déduire la direction
 void EditorForm::on_buttonSaveMap_clicked()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),"",
                                tr(".map"));
     QFile saveFile(fileName);
     if(saveFile.open(QIODevice::WriteOnly))
