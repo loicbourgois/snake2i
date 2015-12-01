@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     head.cpp \
     bodypart.cpp \
     food.cpp \
-    util.cpp
+    util.cpp \
+    sceneeditor.cpp
 
 HEADERS  += main-window.h \
     options-form.h \
@@ -47,7 +48,8 @@ HEADERS  += main-window.h \
     head.h \
     bodypart.h \
     food.h \
-    util.h
+    util.h \
+    sceneeditor.h
 
 FORMS    += \
     main-window.ui \

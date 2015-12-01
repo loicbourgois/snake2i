@@ -12,6 +12,7 @@
 #include "blank.h"
 #include "snake.h"
 #include "bodypart.h"
+#include "sceneeditor.h"
 
 namespace Ui {
 class EditorForm;
@@ -35,7 +36,7 @@ private slots:
 private:
     Ui::EditorForm *ui;
     View * view;
-    Scene * scene;
+    SceneEditor * scene;
     Map * map;
     Head * head;
     BodyPart * body;

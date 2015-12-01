@@ -8,7 +8,7 @@ EditorForm::EditorForm(QWidget *parent) :
     ui->setupUi(this);
     view = new View(this);
     ui->widgetView->layout()->addWidget(view);
-    scene = new Scene(this);
+    scene = new SceneEditor(this);
     view->setScene(scene);
     map = new Map();
     loadMap();
@@ -27,19 +27,19 @@ void EditorForm::loadMap()
         {
             if(map->getTile(x, y) == 'w')
             {
-                scene->addItem(new Wall(scene, x, y));
+                scene->addItem(new Wall(NULL, x, y));
             }
             else if(map->getTile(x, y) == 'h')
             {
-                scene->addItem(new Blank(scene, x, y));
+                scene->addItem(new Blank(NULL, x, y));
             }
             else if(map->getTile(x, y) == 'b')
             {
-                scene->addItem(new Blank(scene, x, y));
+                scene->addItem(new Blank(NULL, x, y));
             }
             else if(map->getTile(x, y) == '.')
             {
-                scene->addItem(new Blank(scene, x, y));
+                scene->addItem(new Blank(NULL, x, y));
             }
         }
     }
@@ -49,12 +49,12 @@ void EditorForm::loadMap()
         {
             if(map->getTile(x, y) == 'h')
             {
-                this->head = new Head(scene, x, y);
+                this->head = new Head(NULL, x, y);
                 scene->addItem(head);
             }
             else if(map->getTile(x, y) == 'b')
             {
-                this->body = new BodyPart(scene, x, y);
+                this->body = new BodyPart(NULL, x, y);
                 scene->addItem(body);
             }
         }
@@ -93,5 +93,5 @@ void EditorForm::on_buttonSaveMap_clicked()
 void EditorForm::on_testButton_clicked()
 {
     map->setTile('w',5,5);
-    scene->addItem(new Wall(scene,5,5));
+    scene->addItem(new Wall(NULL,5,5));
 }
