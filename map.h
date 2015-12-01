@@ -8,7 +8,9 @@ class Map
 {
 public:
     Map(std::string filename);
+    Map();
     char getTile(int x, int y);
+    void setTile(char value,int x,int y);
     int getWidth();
     int getHeight();
     char getDirection();

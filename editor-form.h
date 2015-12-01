@@ -30,6 +30,8 @@ private slots:
 
     void on_buttonSaveMap_clicked();
 
+    void on_testButton_clicked();
+
 private:
     Ui::EditorForm *ui;
     View * view;

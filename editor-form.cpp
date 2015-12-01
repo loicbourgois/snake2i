@@ -10,6 +10,8 @@ EditorForm::EditorForm(QWidget *parent) :
     ui->widgetView->layout()->addWidget(view);
     scene = new Scene(this);
     view->setScene(scene);
+    map = new Map();
+    loadMap();
 }
 
 EditorForm::~EditorForm()
@@ -86,6 +88,10 @@ void EditorForm::on_buttonSaveMap_clicked()
         }
         saveFile.close();
     }
+}
 
-
+void EditorForm::on_testButton_clicked()
+{
+    map->setTile('w',5,5);
+    scene->addItem(new Wall(scene,5,5));
 }

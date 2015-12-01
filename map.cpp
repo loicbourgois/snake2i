@@ -17,7 +17,6 @@ Map::Map(std::string filename) :
     for(int i = 0 ; i < height ; i++)
     {
         map.push_back(std::vector<char>(width));
-
     }
     for(int j = 0 ; j < height ; j++)
     {
@@ -25,6 +24,21 @@ Map::Map(std::string filename) :
         for(int i = 0 ; i < width ; i++)
         {
             map[i][j] = line[i];
+        }
+    }
+}
+
+Map::Map() : width(16) ,height(16)
+{
+    for(int i = 0 ; i < height ; i++)
+    {
+        map.push_back(std::vector<char>(width));
+    }
+    for(int j = 0 ; j < height ; j++)
+    {
+        for(int i = 0 ; i < width ; i++)
+        {
+            map[i][j] = '.';
         }
     }
 }
@@ -37,6 +51,11 @@ char Map::getTile(int x, int y)
     }
     else
         return -1;
+}
+
+void Map::setTile(char value, int x, int y)
+{
+    map[x][y] = value;
 }
 
 int Map::getWidth()
