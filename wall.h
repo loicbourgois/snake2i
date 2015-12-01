@@ -14,7 +14,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void advance(int step);
 private:
-    int radius;
+    float radius;
     QPolygon polygon;
 };
 

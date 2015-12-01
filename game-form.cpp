@@ -10,7 +10,8 @@
 
 GameForm::GameForm(QWidget *parent, int difficulty) :
     QWidget(parent),
-    ui(new Ui::GameForm)
+    ui(new Ui::GameForm),
+    score(0)
 {
     ui->setupUi(this);
     ui->pushButtonPause->hide();
@@ -84,7 +85,9 @@ void GameForm::advance()
             && snake.getHead()->pos().y() == food->pos().y())
     {
         popFood();
-        snake.addBodyPart(10,10);
+        score++;
+        ui->labelScore->setText(QString::number(score));
+        snake.addBodyPart(0,0);
     }
     scene->advance();
     if(!snake.isAlive())
@@ -135,6 +138,8 @@ void GameForm::restart()
     ui->labelDead->hide();
     initSnake();
     popFood();
+    score = 0;
+    this->ui->labelScore->setText(QString::number(score));
 }
 
 void GameForm::popFood()

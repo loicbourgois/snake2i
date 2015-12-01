@@ -96,6 +96,13 @@ void Snake::move(Map map)
     {
         alive = false;
     }
+    for(int i = 0 ; i < body.size() ; i++)
+    {
+        if(newx == body[i]->x() && newy == body[i]->y())
+        {
+            alive = false;
+        }
+    }
 }
 
 Head * Snake::getHead()

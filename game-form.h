@@ -42,6 +42,7 @@ private:
     QTimer * timer;
     void popFood();
     void initSnake();
+    unsigned int score;
 };
 
 #endif // GAMEFORM_H
