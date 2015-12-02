@@ -14,6 +14,11 @@ class InstructionsForm : public QWidget
 public:
     explicit InstructionsForm(QWidget *parent = 0);
     ~InstructionsForm();
+public slots:
+
+    void about();
+    void edit();
+    void play();
 
 private:
     Ui::InstructionsForm *ui;

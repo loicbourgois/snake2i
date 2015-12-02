@@ -24,6 +24,7 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void mousePressEvent(QMouseEvent *event);
 
+
 public slots:
     void precedent();
     void advance();
@@ -35,6 +36,9 @@ public slots:
     void zoomMore();
     void zoomLess();
     void loadLevel(QString level = "");
+    void about();
+    void edit();
+    void instructions();
 
 private:
     Ui::GameForm *ui;

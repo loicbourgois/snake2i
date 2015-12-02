@@ -7,8 +7,10 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QFileDialog>
-
 #include <QDebug>
+#include <QMessageBox>
+#include "editor-form.h"
+#include "instructions-form.h"
 
 GameForm::GameForm(QWidget *parent) :
     QWidget(parent),
@@ -20,10 +22,7 @@ GameForm::GameForm(QWidget *parent) :
     ui->pushButtonReprendre->hide();
     ui->pushButtonRestart->hide();
     ui->labelDead->hide();
-    ((MainWindow*)this->parent())->showMaximized();
 
-    QObject::connect(this->ui->pushButtonPrecedent, SIGNAL(clicked()),
-                     this, SLOT(precedent()));
     QObject::connect(this->ui->pushButtonGo, SIGNAL(clicked()),
                      this, SLOT(go()));
     QObject::connect(this->ui->pushButtonPause, SIGNAL(clicked()),
@@ -38,6 +37,12 @@ GameForm::GameForm(QWidget *parent) :
                      this, SLOT(zoomMore()));
     QObject::connect(this->ui->pushButtonLoadLevel, SIGNAL(clicked()),
                      this, SLOT(loadLevel()));
+    QObject::connect(this->ui->pushButtonAbout, SIGNAL(clicked()),
+                         this, SLOT(about()));
+    QObject::connect(this->ui->pushButtonEditor, SIGNAL(clicked()),
+                         this, SLOT(edit()));
+    QObject::connect(this->ui->pushButtonInstructions, SIGNAL(clicked()),
+                         this, SLOT(instructions()));
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
@@ -223,22 +228,22 @@ void GameForm::initSnake()
 void GameForm::keyPressEvent(QKeyEvent * event){
     if(snake.isAlive())
     {
-        if (event->key()==Qt::Key_Z)
+        if (event->key()==Qt::Key_Z || event->key()==Qt::Key_Up)
         {
             if(snake.getDirection() != 'd')
                 snake.setDirection('u');
         }
-        else if (event->key()==Qt::Key_S)
+        else if (event->key()==Qt::Key_S || event->key()==Qt::Key_Down)
         {
             if(snake.getDirection() != 'u')
                 snake.setDirection('d');
         }
-        else if (event->key()==Qt::Key_Q)
+        else if (event->key()==Qt::Key_Q || event->key()==Qt::Key_Left)
         {
             if(snake.getDirection() != 'r')
                 snake.setDirection('l');
         }
-        else if (event->key()==Qt::Key_D)
+        else if (event->key()==Qt::Key_D || event->key()==Qt::Key_Right)
         {
             if(snake.getDirection() != 'l')
                 snake.setDirection('r');
@@ -248,7 +253,7 @@ void GameForm::keyPressEvent(QKeyEvent * event){
     {
         restart();
     }
-    else if (event->key()==Qt::Key_P)
+    else if (event->key()==Qt::Key_P || event->key()==Qt::Key_Space || event->key()==Qt::Key_Enter)
     {
         if(timer->isActive())
         {
@@ -263,4 +268,19 @@ void GameForm::keyPressEvent(QKeyEvent * event){
 
 void GameForm::mousePressEvent ( QMouseEvent * event ){
     setFocus();
+}
+
+void GameForm::about()
+{
+    QMessageBox::about(this, "À propos", "Jeux de snake réalisé par Loïc Bourgois et Maxime Desmarchelier pour le cours d'Interface Homme Machine en seconde année à l'IG2I.");
+}
+
+void GameForm::edit()
+{
+    ((MainWindow*)this->parent())->setCentralWidget(new EditorForm((MainWindow*)this->parent()));
+}
+
+void GameForm::instructions()
+{
+    ((MainWindow*)this->parent())->setCentralWidget(new InstructionsForm((MainWindow*)this->parent()));
 }
