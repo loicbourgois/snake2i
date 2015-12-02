@@ -13,6 +13,9 @@
 #include "snake.h"
 #include "bodypart.h"
 #include "sceneeditor.h"
+#include "ui_editor-form.h"
+#include <QDebug>
+#include "bodypart.h"
 
 namespace Ui {
 class EditorForm;
@@ -39,6 +42,8 @@ private slots:
 
     void on_wallButton_clicked();
 
+public slots:
+    void precedent();
 private:
     Ui::EditorForm *ui;
     View * view;
@@ -50,6 +55,7 @@ private:
     bool headPlaced;
     bool bodyPlaced;
     void loadMap();
+    QString guessDirection();
 };
 
 #endif // EDITORFORM_H

@@ -1,7 +1,10 @@
 #include "editor-form.h"
-#include "ui_editor-form.h"
-#include <QDebug>
-#include "bodypart.h"
+
+#include "ui_launch-game-form.h"
+
+#include "main-window.h"
+#include "game-form.h"
+#include "main-form.h"
 EditorForm::EditorForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditorForm)
@@ -17,6 +20,8 @@ EditorForm::EditorForm(QWidget *parent) :
     connect(scene,SIGNAL(deleted(double,double)),this,SLOT(onDeleted(double,double)));
     bodyPlaced = false;
     headPlaced = false;
+    //QObject::connect(this->ui->pushButtonPrecedent, SIGNAL(clicked()),
+      //               this, SLOT(precedent()));
 }
 
 EditorForm::~EditorForm()
@@ -68,15 +73,35 @@ void EditorForm::loadMap()
     }
 }
 
+QString EditorForm::guessDirection()
+{
+    QString retour = "";
+    for(int i = 0 ; i < map->getHeight() ; i++)
+        for(int j = 0 ; j < map->getWidth() ;j++)
+        {
+            if(map->getTile(j,i) == 'h')
+            {
+                if(map->getTile(j,i+1) == 'b')
+                    retour = "u";
+                if(map->getTile(j,i-1) == 'b')
+                    retour = "d";
+                if(map->getTile(j+1,i) == 'b')
+                    retour = "l";
+                if(map->getTile(j-1,i) == 'b')
+                    retour = "r";
+            }
+        }
+    return retour;
+}
+
 void EditorForm::on_buttonLoadMap_clicked()
 {
-    //map = new Map("./square.map");
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     tr("Choisir une carte"), "",tr("Map Files (*.map)"));
     map = new Map(fileName.toStdString());
     loadMap();
 }
-//TODO recuperer la tête et trouver son corps pour en déduire la direction
+
 void EditorForm::on_buttonSaveMap_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),"",
@@ -85,9 +110,9 @@ void EditorForm::on_buttonSaveMap_clicked()
     if(saveFile.open(QIODevice::WriteOnly))
     {
         QTextStream stream(&saveFile);
-        stream << "u\n"; //Direction au hasard pour l'instant
-        stream << map->getWidth();
-        stream << map->getHeight();
+        stream << guessDirection().toUtf8() << "\n";
+        stream << map->getWidth() << "\n";
+        stream << map->getHeight()<< "\n";
         for (int colonne = 0; colonne < map->getHeight() ; colonne++)
         {
             for(int ligne = 0; ligne < map->getWidth(); ligne++)
@@ -99,6 +124,8 @@ void EditorForm::on_buttonSaveMap_clicked()
         saveFile.close();
     }
 }
+
+
 
 
 
@@ -221,3 +248,9 @@ void EditorForm::on_wallButton_clicked()
     if(choice != 3)
         choice = 1;
 }
+
+void EditorForm::precedent()
+{
+    ((MainWindow*)(this->parent()))->setCentralWidget(new MainForm((MainWindow*)(this->parent())));
+}
+
