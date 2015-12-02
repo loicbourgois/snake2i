@@ -22,7 +22,6 @@ GameForm::GameForm(QWidget *parent) :
     ui->pushButtonReprendre->hide();
     ui->pushButtonRestart->hide();
     ui->labelDead->hide();
-
     QObject::connect(this->ui->pushButtonGo, SIGNAL(clicked()),
                      this, SLOT(go()));
     QObject::connect(this->ui->pushButtonPause, SIGNAL(clicked()),
@@ -38,11 +37,11 @@ GameForm::GameForm(QWidget *parent) :
     QObject::connect(this->ui->pushButtonLoadLevel, SIGNAL(clicked()),
                      this, SLOT(loadLevel()));
     QObject::connect(this->ui->pushButtonAbout, SIGNAL(clicked()),
-                         this, SLOT(about()));
+                     this, SLOT(about()));
     QObject::connect(this->ui->pushButtonEditor, SIGNAL(clicked()),
-                         this, SLOT(edit()));
+                     this, SLOT(edit()));
     QObject::connect(this->ui->pushButtonInstructions, SIGNAL(clicked()),
-                         this, SLOT(instructions()));
+                     this, SLOT(instructions()));
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(advance()));
@@ -231,29 +230,45 @@ void GameForm::keyPressEvent(QKeyEvent * event){
         if (event->key()==Qt::Key_Z || event->key()==Qt::Key_Up)
         {
             if(snake.getDirection() != 'd')
+            {
                 snake.setDirection('u');
+                if(snake.isAlive() && !timer->isActive())
+                    reprendre();
+            }
         }
         else if (event->key()==Qt::Key_S || event->key()==Qt::Key_Down)
         {
             if(snake.getDirection() != 'u')
+            {
                 snake.setDirection('d');
+                if(snake.isAlive() && !timer->isActive())
+                    reprendre();
+            }
         }
         else if (event->key()==Qt::Key_Q || event->key()==Qt::Key_Left)
         {
             if(snake.getDirection() != 'r')
+            {
                 snake.setDirection('l');
+                if(snake.isAlive() && !timer->isActive())
+                    reprendre();
+            }
         }
         else if (event->key()==Qt::Key_D || event->key()==Qt::Key_Right)
         {
             if(snake.getDirection() != 'l')
+            {
                 snake.setDirection('r');
+                if(snake.isAlive() && !timer->isActive())
+                    reprendre();
+            }
         }
     }
     if (event->key()==Qt::Key_R)
     {
         restart();
     }
-    else if (event->key()==Qt::Key_P || event->key()==Qt::Key_Space || event->key()==Qt::Key_Enter)
+    else if (event->key()==Qt::Key_P || event->key()==Qt::Key_Space)
     {
         if(timer->isActive())
         {
