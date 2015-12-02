@@ -53,7 +53,7 @@ private:
     bool headPlaced;
     bool bodyPlaced;
     void loadMap();
-    QString guessDirection();
+    char guessDirection();
 };
 
 #endif // EDITORFORM_H

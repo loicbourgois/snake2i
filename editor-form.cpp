@@ -72,22 +72,22 @@ void EditorForm::loadMap()
     }
 }
 
-QString EditorForm::guessDirection()
+char EditorForm::guessDirection()
 {
-    QString retour = "";
+    char retour = ' ';
     for(int i = 0 ; i < map->getHeight() ; i++)
         for(int j = 0 ; j < map->getWidth() ;j++)
         {
             if(map->getTile(j,i) == 'h')
             {
                 if(map->getTile(j,i+1) == 'b')
-                    retour = "u";
+                    retour = 'u';
                 if(map->getTile(j,i-1) == 'b')
-                    retour = "d";
+                    retour = 'd';
                 if(map->getTile(j+1,i) == 'b')
-                    retour = "l";
+                    retour = 'l';
                 if(map->getTile(j-1,i) == 'b')
-                    retour = "r";
+                    retour = 'r';
             }
         }
     return retour;
@@ -109,7 +109,7 @@ void EditorForm::on_buttonSaveMap_clicked()
     if(saveFile.open(QIODevice::WriteOnly))
     {
         QTextStream stream(&saveFile);
-        stream << guessDirection().toUtf8() << "\n";
+        stream << guessDirection() << "\n";
         stream << map->getWidth() << "\n";
         stream << map->getHeight()<< "\n";
         for (int colonne = 0; colonne < map->getHeight() ; colonne++)
@@ -217,13 +217,25 @@ void EditorForm::onDeleted(double x, double y)
         }
         break;
     case 3 :
-        if(bodyPlaced == false && headPlaced == true)
+        if(bodyPlaced == false && headPlaced == true && map->getTile(x/20,y/20) != 'h')
         {
             map->setTile('b',x/20,y/20);
             scene->removeItem(scene->itemAt(x,y,useless));
             scene->addItem(new BodyPart(NULL,x/20,y/20));
             bodyPlaced = true;
             choice = 0;
+            QStringList splited = map->getPosition('h').split('|');
+            if(splited.size() == 2)
+            {
+                int i = splited[0].toInt();
+                int j = splited[1].toInt();
+                scene->removeItem(scene->itemAt(i*20,j*20,useless));
+                Head * head = new Head(NULL,i,j);
+                head->setDirection(guessDirection());
+                scene->addItem(head);
+                map->setTile('h',i,j);
+                bodyPlaced = false;
+            }
         }
         break;
     default:
