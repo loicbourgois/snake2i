@@ -5,6 +5,7 @@
 #include "main-window.h"
 #include "game-form.h"
 #include "main-form.h"
+#include <QString>
 EditorForm::EditorForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditorForm)
@@ -20,8 +21,6 @@ EditorForm::EditorForm(QWidget *parent) :
     connect(scene,SIGNAL(deleted(double,double)),this,SLOT(onDeleted(double,double)));
     bodyPlaced = false;
     headPlaced = false;
-    //QObject::connect(this->ui->pushButtonPrecedent, SIGNAL(clicked()),
-      //               this, SLOT(precedent()));
 }
 
 EditorForm::~EditorForm()
@@ -142,28 +141,32 @@ void EditorForm::onDeleted(double x, double y)
         if(map->getTile(x/20,y/20) == 'h')
         {
             headPlaced = false;
-            bodyPlaced = false;
-            if(map->getTile(x/20,(y/20)-1) == 'b')
-                scene->removeItem(scene->itemAt(x,y-20,useless));
-            if( map->getTile(x/20,(y/20)+1) == 'b')
-                scene->removeItem(scene->itemAt(x,y+20,useless));
-            if(map->getTile((x/20)-1,(y/20)) == 'b')
-                scene->removeItem(scene->itemAt(x-20,y,useless));
-            if(map->getTile((x/20)+1,(y/20)) == 'b')
-                scene->removeItem(scene->itemAt(x+20,y,useless));
+            QStringList splited = map->getPosition('b').split('|');
+            if(splited.size() == 2)
+            {
+                int i = splited[0].toInt();
+                int j = splited[1].toInt();
+                //Reparer le splited
+                scene->removeItem(scene->itemAt(i*20,j*20,useless));
+                scene->addItem(new Blank(NULL,i,j));
+                map->setTile('.',i,j);
+                bodyPlaced = false;
+            }
         }
         if(map->getTile(x/20,y/20) == 'b')
         {
             headPlaced = false;
-            bodyPlaced = false;
-            if(map->getTile(x/20,(y/20)-1) == 'h')
-                scene->removeItem(scene->itemAt(x,y-20,useless));
-            if( map->getTile(x/20,(y/20)+1) == 'h')
-                scene->removeItem(scene->itemAt(x,y+20,useless));
-            if(map->getTile((x/20)-1,(y/20)) == 'h')
-                scene->removeItem(scene->itemAt(x-20,y,useless));
-            if(map->getTile((x/20)+1,(y/20)) == 'h')
-                scene->removeItem(scene->itemAt(x+20,y,useless));
+            QStringList splited = map->getPosition('h').split('|');
+            if(splited.size() == 2)
+            {
+                int i = splited[0].toInt();
+                int j = splited[1].toInt();
+                //Reparer le splited
+                scene->removeItem(scene->itemAt(i*20,j*20,useless));
+                scene->addItem(new Blank(NULL,i,j));
+                map->setTile('.',i,j);
+                bodyPlaced = false;
+            }
         }
         map->setTile('.',x/20,y/20);
         scene->removeItem(scene->itemAt(x,y,useless));
@@ -173,28 +176,31 @@ void EditorForm::onDeleted(double x, double y)
         if(map->getTile(x/20,y/20) == 'h')
         {
             headPlaced = false;
-            bodyPlaced = false;
-            if(map->getTile(x/20,(y/20)-1) == 'b')
-                scene->removeItem(scene->itemAt(x,y-20,useless));
-            if( map->getTile(x/20,(y/20)+1) == 'b')
-                scene->removeItem(scene->itemAt(x,y+20,useless));
-            if(map->getTile((x/20)-1,(y/20)) == 'b')
-                scene->removeItem(scene->itemAt(x-20,y,useless));
-            if(map->getTile((x/20)+1,(y/20)) == 'b')
-                scene->removeItem(scene->itemAt(x+20,y,useless));
+            QStringList splited = map->getPosition('b').split('|');
+            if(splited.size() == 2)
+            {
+                int i = splited[0].toInt();
+                int j = splited[1].toInt();
+                //Reparer le splited
+                scene->removeItem(scene->itemAt(i*20,j*20,useless));
+                scene->addItem(new Blank(NULL,i,j));
+                map->setTile('.',i,j);
+                bodyPlaced = false;
+            }
         }
         if(map->getTile(x/20,y/20) == 'b')
         {
             headPlaced = false;
-            bodyPlaced = false;
-            if(map->getTile(x/20,(y/20)-1) == 'h')
-                scene->removeItem(scene->itemAt(x,y-20,useless));
-            if( map->getTile(x/20,(y/20)+1) == 'h')
-                scene->removeItem(scene->itemAt(x,y+20,useless));
-            if(map->getTile((x/20)-1,(y/20)) == 'h')
-                scene->removeItem(scene->itemAt(x-20,y,useless));
-            if(map->getTile((x/20)+1,(y/20)) == 'h')
-                scene->removeItem(scene->itemAt(x+20,y,useless));
+            QStringList splited = map->getPosition('h').split('|');
+            if(splited.size() == 2)
+            {
+                int i = splited[0].toInt();
+                int j = splited[1].toInt();
+                scene->removeItem(scene->itemAt(i*20,j*20,useless));
+                scene->addItem(new Blank(NULL,i,j));
+                map->setTile('.',i,j);
+                bodyPlaced = false;
+            }
         }
         map->setTile('w',x/20,y/20);
         scene->removeItem(scene->itemAt(x,y,useless));
@@ -213,17 +219,11 @@ void EditorForm::onDeleted(double x, double y)
     case 3 :
         if(bodyPlaced == false && headPlaced == true)
         {
-            if((map->getTile(x/20,(y/20)-1) == 'h'
-                || map->getTile(x/20,(y/20)+1) == 'h'
-                || map->getTile((x/20)-1,(y/20)) == 'h'
-                || map->getTile((x/20)+1,(y/20)) == 'h') && map->getTile(x/20,y/20) != 'h')
-            {
-                map->setTile('b',x/20,y/20);
-                scene->removeItem(scene->itemAt(x,y,useless));
-                scene->addItem(new BodyPart(NULL,x/20,y/20));
-                bodyPlaced = true;
-                choice = 0;
-            }
+            map->setTile('b',x/20,y/20);
+            scene->removeItem(scene->itemAt(x,y,useless));
+            scene->addItem(new BodyPart(NULL,x/20,y/20));
+            bodyPlaced = true;
+            choice = 0;
         }
         break;
     default:
@@ -249,8 +249,4 @@ void EditorForm::on_wallButton_clicked()
         choice = 1;
 }
 
-void EditorForm::precedent()
-{
-    ((MainWindow*)(this->parent()))->setCentralWidget(new MainForm((MainWindow*)(this->parent())));
-}
 

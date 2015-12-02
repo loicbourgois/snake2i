@@ -42,8 +42,6 @@ private slots:
 
     void on_wallButton_clicked();
 
-public slots:
-    void precedent();
 private:
     Ui::EditorForm *ui;
     View * view;

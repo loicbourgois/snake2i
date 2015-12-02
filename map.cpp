@@ -72,3 +72,16 @@ char Map::getDirection()
 {
     return direction;
 }
+
+QString Map::getPosition(char c)
+{
+    for(int j = 0 ; j < height ; j++)
+    {
+        for(int i = 0 ; i < width ; i++)
+        {
+            if(c == map[j][i])
+                return QString::number(j) + "|" + QString::number(i);
+        }
+    }
+    return QString();
+}

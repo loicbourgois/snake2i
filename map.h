@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <QString>
 
 class Map
 {
@@ -14,6 +15,7 @@ public:
     int getWidth();
     int getHeight();
     char getDirection();
+    QString getPosition(char c);
 private:
     std::vector< std::vector<char> > map;
     int width;
