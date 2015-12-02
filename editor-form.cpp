@@ -219,22 +219,26 @@ void EditorForm::onDeleted(double x, double y)
     case 3 :
         if(bodyPlaced == false && headPlaced == true && map->getTile(x/20,y/20) != 'h')
         {
-            map->setTile('b',x/20,y/20);
-            scene->removeItem(scene->itemAt(x,y,useless));
-            scene->addItem(new BodyPart(NULL,x/20,y/20));
-            bodyPlaced = true;
-            choice = 0;
             QStringList splited = map->getPosition('h').split('|');
             if(splited.size() == 2)
             {
                 int i = splited[0].toInt();
                 int j = splited[1].toInt();
-                scene->removeItem(scene->itemAt(i*20,j*20,useless));
-                Head * head = new Head(NULL,i,j);
-                head->setDirection(guessDirection());
-                scene->addItem(head);
-                map->setTile('h',i,j);
-                bodyPlaced = false;
+                if(x/20 == i && y/20 == j+1 ||
+                        x/20 == i && y/20 == j-1 ||
+                        x/20 == i+1 && y/20 == j ||
+                        x/20 == i-1 && y/20 == j)
+                {
+                    map->setTile('b',x/20,y/20);
+                    scene->removeItem(scene->itemAt(x,y,useless));
+                    scene->addItem(new BodyPart(NULL,x/20,y/20));
+                    scene->removeItem(scene->itemAt(i*20,j*20,useless));
+                    Head * head = new Head(NULL,i,j);
+                    head->setDirection(guessDirection());
+                    scene->addItem(head);
+                    bodyPlaced = true;
+                    choice = 0;
+                }
             }
         }
         break;
