@@ -40,7 +40,7 @@ EditorForm::EditorForm(QWidget *parent) :
     ClickableLabel * head = new ClickableLabel("head");
     QPixmap headPNG("head.png");
     head->setPixmap(headPNG);
-    head->setMaximumSize(80,80);
+    head->setMaximumSize(80,102);
     connect(head,SIGNAL(clicked(QString)),SLOT(onClicked(QString)));
     ui->gridLayout->addWidget(head);
 
