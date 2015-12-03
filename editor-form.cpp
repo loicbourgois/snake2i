@@ -6,13 +6,15 @@
 #include "game-form.h"
 #include "main-form.h"
 #include <QString>
+#include <QMouseEvent>
+
 EditorForm::EditorForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditorForm)
 {
     choice = 0;
     ui->setupUi(this);
-    view = new View(this);
+    view = new View(this,true);
     ui->widgetView->layout()->addWidget(view);
     scene = new SceneEditor(this);
     view->setScene(scene);
@@ -21,6 +23,10 @@ EditorForm::EditorForm(QWidget *parent) :
     connect(scene,SIGNAL(deleted(double,double)),this,SLOT(onDeleted(double,double)));
     bodyPlaced = false;
     headPlaced = false;
+    cursor = new Wall(NULL,0,0);
+    cursor->setZValue(9999);
+    setMouseTracking(true);
+
 }
 
 EditorForm::~EditorForm()
@@ -181,7 +187,6 @@ void EditorForm::onDeleted(double x, double y)
             {
                 int i = splited[0].toInt();
                 int j = splited[1].toInt();
-                //Reparer le splited
                 scene->removeItem(scene->itemAt(i*20,j*20,useless));
                 scene->addItem(new Blank(NULL,i,j));
                 map->setTile('.',i,j);
@@ -264,5 +269,10 @@ void EditorForm::on_wallButton_clicked()
     if(choice != 3)
         choice = 1;
 }
+
+
+
+
+
 
 

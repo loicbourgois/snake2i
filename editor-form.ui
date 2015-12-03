@@ -66,17 +66,17 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="wallButton">
-       <property name="text">
-        <string>wallbutton</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QPushButton" name="headButton">
        <property name="text">
         <string>headButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="wallButton">
+       <property name="text">
+        <string>wallbutton</string>
        </property>
       </widget>
      </item>

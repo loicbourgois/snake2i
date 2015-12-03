@@ -6,7 +6,7 @@
 class View : public QGraphicsView
 {
 public:
-    View(QWidget * parent);
+    View(QWidget * parent, bool cursorH = false);
 };
 
 #endif // VIEW_H

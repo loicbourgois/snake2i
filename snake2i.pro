@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     bodypart.cpp \
     food.cpp \
     util.cpp \
-    sceneeditor.cpp
+    sceneeditor.cpp \
+    eraser.cpp
 
 HEADERS  += main-window.h \
     options-form.h \
@@ -49,7 +50,8 @@ HEADERS  += main-window.h \
     bodypart.h \
     food.h \
     util.h \
-    sceneeditor.h
+    sceneeditor.h \
+    eraser.h
 
 FORMS    += \
     main-window.ui \

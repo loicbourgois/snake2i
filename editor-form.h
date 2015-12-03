@@ -28,6 +28,7 @@ class EditorForm : public QWidget
 public:
     explicit EditorForm(QWidget *parent = 0);
     ~EditorForm();
+    int choice;
 
 private slots:
     void on_buttonLoadMap_clicked();
@@ -42,6 +43,7 @@ private slots:
 
     void on_wallButton_clicked();
 
+
 private:
     Ui::EditorForm *ui;
     View * view;
@@ -49,11 +51,12 @@ private:
     Map * map;
     Head * head;
     BodyPart * body;
-    int choice;
+
     bool headPlaced;
     bool bodyPlaced;
     void loadMap();
     char guessDirection();
+    QGraphicsItem * cursor;
 };
 
 #endif // EDITORFORM_H
