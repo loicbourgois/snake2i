@@ -68,4 +68,7 @@ DISTFILES += \
     default.map \
     labyrinthe.map \
     body.png \
-    wall.png
+    wall.png \
+    blank.png \
+    body.png \
+    head.png
