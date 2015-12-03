@@ -141,7 +141,7 @@ void EditorForm::on_buttonSaveMap_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),"",
                                                     tr(".map"));
-    QFile saveFile(fileName);
+    QFile saveFile(fileName + ".map");
     if(saveFile.open(QIODevice::WriteOnly))
     {
         QTextStream stream(&saveFile);
