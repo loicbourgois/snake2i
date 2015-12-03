@@ -16,6 +16,7 @@
 #include "ui_editor-form.h"
 #include <QDebug>
 #include "bodypart.h"
+#include <QObject>
 
 namespace Ui {
 class EditorForm;
@@ -43,6 +44,7 @@ private slots:
 
     void on_wallButton_clicked();
 
+    void onClicked(QString);
 
 private:
     Ui::EditorForm *ui;

@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     food.cpp \
     util.cpp \
     sceneeditor.cpp \
-    eraser.cpp
+    eraser.cpp \
+    clickablelabel.cpp
 
 HEADERS  += main-window.h \
     options-form.h \
@@ -51,7 +52,8 @@ HEADERS  += main-window.h \
     food.h \
     util.h \
     sceneeditor.h \
-    eraser.h
+    eraser.h \
+    clickablelabel.h
 
 FORMS    += \
     main-window.ui \
@@ -64,4 +66,6 @@ FORMS    += \
 
 DISTFILES += \
     default.map \
-    labyrinthe.map
+    labyrinthe.map \
+    body.png \
+    wall.png

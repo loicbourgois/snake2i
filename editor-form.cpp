@@ -7,6 +7,7 @@
 #include "main-form.h"
 #include <QString>
 #include <QMouseEvent>
+#include "clickablelabel.h"
 
 EditorForm::EditorForm(QWidget *parent) :
     QWidget(parent),
@@ -26,6 +27,27 @@ EditorForm::EditorForm(QWidget *parent) :
     cursor = new Wall(NULL,0,0);
     cursor->setZValue(9999);
     setMouseTracking(true);
+
+    ClickableLabel * wall = new ClickableLabel("wall");
+    QPixmap wallPNG("wall.png");
+    wall->setPixmap(wallPNG);
+    wall->setMaximumSize(80,80);
+    connect(wall,SIGNAL(clicked(QString)),SLOT(onClicked(QString)));
+    ui->gridLayout->addWidget(wall);
+
+    ClickableLabel * head = new ClickableLabel("head");
+    QPixmap headPNG("head.png");
+    head->setPixmap(headPNG);
+    head->setMaximumSize(80,80);
+    connect(head,SIGNAL(clicked(QString)),SLOT(onClicked(QString)));
+    ui->gridLayout->addWidget(head);
+
+    ClickableLabel * blank = new ClickableLabel("blank");
+    QPixmap blankPNG("blank.png");
+    blank->setPixmap(blankPNG);
+    blank->setMaximumSize(80,80);
+    connect(blank,SIGNAL(clicked(QString)),SLOT(onClicked(QString)));
+    ui->gridLayout->addWidget(blank);
 
 }
 
@@ -130,10 +152,6 @@ void EditorForm::on_buttonSaveMap_clicked()
     }
 }
 
-
-
-
-
 void EditorForm::onDeleted(double x, double y)
 {
     //BLANK 0
@@ -175,7 +193,8 @@ void EditorForm::onDeleted(double x, double y)
             }
         }
         map->setTile('.',x/20,y/20);
-        scene->removeItem(scene->itemAt(x,y,useless));
+        if(scene->itemAt(x,y,useless) != 0)
+            scene->removeItem(scene->itemAt(x,y,useless));
         scene->addItem(new Blank(NULL,x/20,y/20));
         break;
     case 1 :
@@ -208,14 +227,16 @@ void EditorForm::onDeleted(double x, double y)
             }
         }
         map->setTile('w',x/20,y/20);
-        scene->removeItem(scene->itemAt(x,y,useless));
+        if(scene->itemAt(x,y,useless) != 0)
+            scene->removeItem(scene->itemAt(x,y,useless));
         scene->addItem(new Wall(NULL,x/20,y/20));
         break;
     case 2 :
         if(headPlaced == false && bodyPlaced == false)
         {
             map->setTile('h',x/20,y/20);
-            scene->removeItem(scene->itemAt(x,y,useless));
+            if(scene->itemAt(x,y,useless) != 0)
+                scene->removeItem(scene->itemAt(x,y,useless));
             scene->addItem(new Head(NULL,x/20,y/20));
             choice = 3;
             headPlaced = true;
@@ -235,7 +256,8 @@ void EditorForm::onDeleted(double x, double y)
                         x/20 == i-1 && y/20 == j)
                 {
                     map->setTile('b',x/20,y/20);
-                    scene->removeItem(scene->itemAt(x,y,useless));
+                    if(scene->itemAt(x,y,useless) != 0)
+                        scene->removeItem(scene->itemAt(x,y,useless));
                     scene->addItem(new BodyPart(NULL,x/20,y/20));
                     scene->removeItem(scene->itemAt(i*20,j*20,useless));
                     Head * head = new Head(NULL,i,j);
@@ -268,6 +290,19 @@ void EditorForm::on_wallButton_clicked()
 {
     if(choice != 3)
         choice = 1;
+}
+
+void EditorForm::onClicked(QString type)
+{
+    if(type == "wall")
+        if(choice != 3)
+            choice = 1;
+    if(type == "blank")
+        if(choice != 3)
+            choice = 0;
+    if(type == "head")
+        if(choice != 3)
+            choice = 2;
 }
 
 
