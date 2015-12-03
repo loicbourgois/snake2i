@@ -17,5 +17,6 @@ public:
 private:
     float radius;
     QPolygon polygon;
+    QPolygon polygon2;
 };
 #endif // ERASER_H
