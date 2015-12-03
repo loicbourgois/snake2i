@@ -43,6 +43,10 @@ private slots:
 
     void on_wallButton_clicked();
 
+    void play();
+    void instructions();
+    void about();
+
 
 private:
     Ui::EditorForm *ui;
