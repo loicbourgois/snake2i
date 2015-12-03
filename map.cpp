@@ -55,7 +55,8 @@ char Map::getTile(int x, int y)
 
 void Map::setTile(char value, int x, int y)
 {
-    map[x][y] = value;
+    if(x < width && y < height && x >= 0 && y >=0)
+        map[x][y] = value;
 }
 
 int Map::getWidth()
