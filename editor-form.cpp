@@ -8,6 +8,8 @@
 #include <QString>
 #include <QMouseEvent>
 #include "clickablelabel.h"
+#include <QMessageBox>
+#include "instructions-form.h"
 
 EditorForm::EditorForm(QWidget *parent) :
     QWidget(parent),
@@ -48,7 +50,13 @@ EditorForm::EditorForm(QWidget *parent) :
     blank->setMaximumSize(80,80);
     connect(blank,SIGNAL(clicked(QString)),SLOT(onClicked(QString)));
     ui->gridLayout->addWidget(blank);
-
+    
+    QObject::connect(this->ui->pushButtonAbout, SIGNAL(clicked()),
+                     this, SLOT(about()));
+    QObject::connect(this->ui->pushButtonPlay, SIGNAL(clicked()),
+                     this, SLOT(play()));
+    QObject::connect(this->ui->pushButtonInstructions, SIGNAL(clicked()),
+                     this, SLOT(instructions()));
 }
 
 EditorForm::~EditorForm()
@@ -303,6 +311,21 @@ void EditorForm::onClicked(QString type)
     if(type == "head")
         if(choice != 3)
             choice = 2;
+}
+
+void EditorForm::play()
+{
+    ((MainWindow*)this->parent())->setCentralWidget(new GameForm((MainWindow*)this->parent()));
+}
+
+void EditorForm::instructions()
+{
+    ((MainWindow*)this->parent())->setCentralWidget(new InstructionsForm((MainWindow*)this->parent()));
+}
+
+void EditorForm::about()
+{
+    QMessageBox::about(this, "À propos", "Jeux de snake réalisé par Loïc Bourgois et Maxime Desmarchelier pour le cours d'Interface Homme Machine en seconde année à l'IG2I.");
 }
 
 

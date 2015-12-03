@@ -44,7 +44,14 @@ private slots:
 
     void on_wallButton_clicked();
 
+
     void onClicked(QString);
+
+    void play();
+    void instructions();
+    void about();
+
+
 
 private:
     Ui::EditorForm *ui;
